@@ -4,7 +4,10 @@ html
     link(href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css', rel='stylesheet') 
     script(src='//code.jquery.com/jquery-1.10.2.min.js')
     script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
-    script(src='javascripts/main.js')  
+    script(src='javascripts/handlebar.js') 
+    script(src='javascripts/moment.js')
+    script(src='javascripts/Livestamp.js') 
+    script(src='javascripts/main.js') 
     link(rel='stylesheet', type='text/css', href='stylesheets/main.css')
   body
     .container
@@ -27,8 +30,16 @@ html
       .col-md-8
         p.lead     
           ul#savedList.list-group
-            each val in links
-               li(id=val.id).list-group-item= val.name +" Website " +    val.url +"    "
-                  button.btn.btn-default.btn-sm(type='submit') delete
+      
+      script#url-template(type='text/x-handlebars-template').
+        <div class="urlLinks">
+          <div id="{{id}}" >
+          {{ name}}  Website <a href="{{ url }}" > {{ url }} </a>
+          <button style="float:right;display:none" class="btn btn-default btn-sm" type="submit" onclick="app.delete('{{id}}')">delete</button>
+          </div>
+          <div>Hey leute! Hab eine lustige Seite gefunden</div>
+          <div>Created by <a href="">{{ owner }}</a> <span data-livestamp="{{ date }}"></span> </div>
+          </div>      
+                
 
                 

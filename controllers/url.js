@@ -7,6 +7,8 @@ function URL (){
 	
 	var db = new DB();
 	var that = this;
+	
+
     this.validateUrl = function (req,res){
        
         if(db.contains(req.query.url)) {
@@ -26,7 +28,7 @@ function URL (){
 
     this.saveToDb = function (req,res,urlToValidate){
         var urlHostParts = that.parseUrl(urlToValidate)[1].split(".");
-		  
+		 
         var obj = {
 		      name: that.parseHostName ( urlHostParts[0]),
 	          url: urlToValidate,
@@ -39,7 +41,7 @@ function URL (){
 		};
 		 
         if(db.insert(obj) === "success") 
-        	res.send({obj: obj,status: "success" });
+        	res.send({obj: obj,status: "success"});
         else
         	res.send({status: "error" })
  
@@ -53,8 +55,9 @@ function URL (){
         	res.send({status: "error" })
     }
 
-    this.getAll = function (){
-    	return db.getAll();
+    this.getAll = function (req,res){
+    	 res.send({obj: db.getAll(),status:"success"});
+    	 
     }
 
     this.parseHostName = function (  hostName ){

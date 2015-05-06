@@ -12,9 +12,10 @@ var router = express.Router();
 	});
 
 	router.get('/main', function(req, res) {
-	  var links = url.getAll();
-	  res.render('main', { links : links });
+	  res.render('main', {   });
 	});
+
+	router.get('/getAll',  url.getAll);
 
 	router.get('/validateUrl',  url.validateUrl);
 
