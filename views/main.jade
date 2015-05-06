@@ -22,7 +22,7 @@ html
           #custom-search-input.col-md-10
             .input-group
               input#linkInput.form-control.input-lg(type='text', placeholder='')
-          span.input-group-btn.col-md-2
+          span.col-md-2
             button#addLink.btn.btn-default.btn-lg(type='submit') Post New Link
       |       
       |       
@@ -31,13 +31,14 @@ html
           ul#savedList.list-group
       
       script#url-template(type='text/x-handlebars-template').
-        <div class="urlLinks" id="{{id}}">
+        <div style="margin:15px 5px" class="urlLinks" id="{{id}}">
           <div  >
           {{ name}}  Website <a href="{{ url }}" > {{ url }} </a>
-          <button style="float:right;display:none" class="btn btn-default btn-sm" type="submit" onclick="app.delete({{id}})">delete</button>
           </div>
           <div>Hey leute! Hab eine lustige Seite gefunden</div>
-          <div>Created by <a href="">{{ owner }}</a> <span data-livestamp="{{ date }}"></span> </div>
+          <div>Created by <a href="">{{ owner }}</a> <span data-livestamp="{{ date }}"></span>
+          <button style="float:right;display:none" class="btn btn-default btn-sm" type="submit" onclick="app.delete({{id}})">delete</button> 
+          </div>
           </div>      
                 
 
