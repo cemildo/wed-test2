@@ -1,62 +1,82 @@
 var fs = require("fs");
-var db = require("../db/urls.json");
+
 
 
 function DB (){
+   var that = this;
    this.insert = function ( obj ){
+     
+      that.readFromFile (function ( db ){
+         console.log(db);
+         db.push(obj);
+         that.writeToFile (db);
+      });
       
-      db.unshift(obj);
-
-		fs.writeFile(  "db/urls.json" , JSON.stringify( db , null , 4), "utf8", function(){ });
+        
       return "success"
    }
 
-   this.update = function (){
+   this.writeToFile = function (db){
+      
 
+      var wstream = fs.createWriteStream("db/urls.json");
+         wstream.write(JSON.stringify( db , null , 4));
+         wstream.end();
+   }
+
+   this.readFromFile = function ( call ){
+      fs.readFile("db/urls.json", 'utf8', function (err,db) {
+        if (err) {
+          return console.log(err);
+        }
+
+        call (JSON.parse(db));
+      });
    }
 
    this.deleteNode =function ( id ){
-
-      // Array Remove - By John Resig (MIT Licensed)
-      Array.prototype.remove = function(from, to) {
-        var rest = this.slice((to || from) + 1 || this.length);
-        this.length = from < 0 ? this.length + from : from;
-        return this.push.apply(this, rest);
-      };
-
-      var db = require("../db/urls.json"); 
-      fs.writeFile( "db/urls.json"  , JSON.stringify( [] , null , 4), "utf8", function(){ });
-
-      for(elm in db){
-        
-         if(db[elm].id == id)
-         { 
-             
-            db.remove(elm);
-           
-            fs.writeFile( "db/urls.json"  , JSON.stringify( db , null , 4), "utf8", function(){ });
+      that.readFromFile (function ( db ){
+         if(db.length == 0){
+            return "success";
          }
-      }
+         function diffArray (a, b) {
+            var diff = [];
+            for ( var i = 0; i < a.length; i++)
+            {
+               if( a[i].id  != b ){
+                  diff.push(a[i]);
+               }
+            }
+            return diff;
+         }
+
+          
+         var diff = diffArray(db,id);
+         that.writeToFile(diff);
+      }); 
       
       return "success";
    }
 
-   this.contains = function ( byurl ){
+   this.contains = function ( byurl ,callback){
       
-      var db = require("../db/urls.json"); 
-      for(elm in db){
-        
-         if(db[elm].url === byurl)
+      that.readFromFile (function ( db ){
+         for(elm in db)
          {
-            return true;
+            if(db[elm].url === byurl)
+            {
+               callback(true);
+               return;
+            }
          }
-      }
-      return false;
- 
+         callback(false);
+      });
    }
 
-   this.getAll = function (){
-     return require("../db/urls.json");
+   this.getAll = function (callback){
+     that.readFromFile (function ( db ){
+        callback(db);
+     });  
    }
 
 }

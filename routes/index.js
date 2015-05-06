@@ -15,11 +15,13 @@ var router = express.Router();
 	  res.render('main', {   });
 	});
 
-	router.get('/getAll',  url.getAll);
+	router.get('/checkIfNewArrived',  url.checkIfNewArrived);
+
+    router.get('/getAll',  url.getAll);
 
 	router.get('/validateUrl',  url.validateUrl);
 
-	router.get('/delete',  url.delete);
+	router.get('/delete',  url.deleteNode);
 
 	module.exports = router;
 

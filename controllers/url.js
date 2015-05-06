@@ -11,19 +11,25 @@ function URL (){
 
     this.validateUrl = function (req,res){
        
-        if(db.contains(req.query.url)) {
-        	res.send({status: "error" });
-        	return;
-        }
+        db.contains(req.query.url,function ( bool ){
+        	console.log(bool);
+        	if(bool){
+        	    res.send({status: "error" });
+        	}
+        	else{
+        	    var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
+				var urlToValidate = req.query.url;
+				if (!myRegExp.test(urlToValidate)){
+				    res.send("Not a valid URL.");
+				}else{
+					that.saveToDb (req,res, urlToValidate);
+				}
+        	}
+            
+        })  
         	
         
-    	var myRegExp =/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i;
-		var urlToValidate = req.query.url;
-		if (!myRegExp.test(urlToValidate)){
-		    res.send("Not a valid URL.");
-		}else{
-			that.saveToDb (req,res, urlToValidate);
-		}
+    	
     }
 
     this.saveToDb = function (req,res,urlToValidate){
@@ -47,7 +53,7 @@ function URL (){
  
     }
 
-    this.delete = function ( req,res  ){
+    this.deleteNode = function ( req,res  ){
     	  
     	if(db.deleteNode(req.query.url) === "success") 
         	res.send({status: "success" });
@@ -56,8 +62,23 @@ function URL (){
     }
 
     this.getAll = function (req,res){
-    	 res.send({obj: db.getAll(),status:"success"});
-    	 
+    	 db.getAll(function ( allNodes ){
+			res.send({obj: allNodes,status:"success"});
+    	 });
+    }
+
+    this.checkIfNewArrived = function (req, res){
+        // in html variable(frontend main.js) we have one more span,
+        // otherwise it shows undefined initializing
+        var numberOfElementsInFrontend = req.query.url - 1; 
+
+        db.getAll(function ( db ){
+            
+         	if(db.length != numberOfElementsInFrontend)
+         	 res.send({newUpdates: true ,status:"success"});
+            else	
+         	 res.send({newUpdates: false ,status:"success"});
+        }) ;
     }
 
     this.parseHostName = function (  hostName ){

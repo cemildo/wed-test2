@@ -12,8 +12,18 @@ $(function() {
    $(document).ready(function(){
      $("div.urlLinks button").css( "display","none" );
      app.getAll ();
-     setInterval(function () { app.getAll ();}, 1000);
+     setInterval(function () { app.checkIfNewArrived();}, 1000);
    });
+
+   app.checkIfNewArrived = function (){
+       var numberOfChild = $("#savedList").children().length;
+       app.ajax("/checkIfNewArrived", numberOfChild ,function (data){
+          if(data.newUpdates){
+            app.getAll ();
+          }
+            
+     });
+   }
 
    app.getAll = function (){
      app.ajax("/getAll", "" ,function (data ){
@@ -23,6 +33,7 @@ $(function() {
       }
       $("#savedList").html(html);
       app.addMouseInOutHandler ();
+      data = null;
     });
    }
 
@@ -65,8 +76,9 @@ $(function() {
    }
 
    app.delete = function ( id ){
+     
    	  app.ajax("/delete", id ,function (data) {
-      	  $("#"+id).parent().remove(); 
+      	  $("#"+id).remove(); 
       })
    }
 

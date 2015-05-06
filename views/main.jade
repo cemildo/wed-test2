@@ -16,15 +16,14 @@ html
       span.input-group-btn.logout
         button.btn.btn-primary.btn-lg(type='submit') Logout
       |  
-      .col-md-6
+      .col-md-8
           h2 
           |             
-          #custom-search-input
-            .input-group.col-md-12
+          #custom-search-input.col-md-10
+            .input-group
               input#linkInput.form-control.input-lg(type='text', placeholder='')
-              |                     
-              span.input-group-btn
-                button#addLink.btn.btn-primary.btn-sm(type='submit') Add Link
+          span.input-group-btn.col-md-2
+            button#addLink.btn.btn-default.btn-lg(type='submit') Post New Link
       |       
       |       
       .col-md-8
@@ -32,10 +31,10 @@ html
           ul#savedList.list-group
       
       script#url-template(type='text/x-handlebars-template').
-        <div class="urlLinks">
-          <div id="{{id}}" >
+        <div class="urlLinks" id="{{id}}">
+          <div  >
           {{ name}}  Website <a href="{{ url }}" > {{ url }} </a>
-          <button style="float:right;display:none" class="btn btn-default btn-sm" type="submit" onclick="app.delete('{{id}}')">delete</button>
+          <button style="float:right;display:none" class="btn btn-default btn-sm" type="submit" onclick="app.delete({{id}})">delete</button>
           </div>
           <div>Hey leute! Hab eine lustige Seite gefunden</div>
           <div>Created by <a href="">{{ owner }}</a> <span data-livestamp="{{ date }}"></span> </div>
