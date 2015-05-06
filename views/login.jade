@@ -1,0 +1,70 @@
+html
+  head
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css', rel='stylesheet')
+    link(href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css', rel='stylesheet')
+    |  
+    script(src='//code.jquery.com/jquery-1.10.2.min.js')
+    |     
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    |   
+    link(rel='stylesheet', type='text/css', href='stylesheets/style.css')
+    |   
+    script(src='javascripts/login.js')
+  body
+    .container
+      .row
+        .col-md-6.col-md-offset-3
+          .panel.panel-login
+            .panel-heading
+              .row
+                .col-xs-6
+                  a#login-form-link.active(href='#') Login
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                .col-xs-6
+                  a#register-form-link(href='#') Register
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              hr
+            | &#x9;&#x9;&#x9;&#x9;&#x9;
+            .panel-body
+              .row
+                .col-lg-12
+                  form#login-form(action='http://phpoll.com/login/process', method='post', role='form', style='display: block;')
+                    .form-group
+                      input#username.form-control(type='text', name='username', tabindex='1', placeholder='Username', value='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      input#password.form-control(type='password', name='password', tabindex='2', placeholder='Password')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group.text-center
+                      input#remember(type='checkbox', tabindex='3', name='remember')
+                      | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                      label(for='remember')  Remember Me
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      .row
+                        .col-sm-6.col-sm-offset-3
+                          input#login-submit.form-control.btn.btn-login(type='submit', name='login-submit', tabindex='4', value='Log In')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      .row
+                        .col-lg-12
+                          .text-center
+                            a.forgot-password(href='http://phpoll.com/recover', tabindex='5') Forgot Password?
+                  | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                  form#register-form(action='http://phpoll.com/register/process', method='post', role='form', style='display: none;')
+                    .form-group
+                      input#username.form-control(type='text', name='username', tabindex='1', placeholder='Username', value='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      input#email.form-control(type='email', name='email', tabindex='1', placeholder='Email Address', value='')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      input#password.form-control(type='password', name='password', tabindex='2', placeholder='Password')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      input#confirm-password.form-control(type='password', name='confirm-password', tabindex='2', placeholder='Confirm Password')
+                    | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                    .form-group
+                      .row
+                        .col-sm-6.col-sm-offset-3
+                          input#register-submit.form-control.btn.btn-register(type='submit', name='register-submit', tabindex='4', value='Register Now')
