@@ -15,6 +15,8 @@ $(function() {
      setInterval(function () { app.checkIfNewArrived();}, 1000);
    });
 
+
+
    app.checkIfNewArrived = function (){
        var numberOfChild = $("#savedList").children().length;
        app.ajax("/checkIfNewArrived", numberOfChild ,function (data){
