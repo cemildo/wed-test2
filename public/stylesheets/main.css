@@ -8,6 +8,7 @@
 #custom-search-input input{
     border: 0;
     box-shadow: none;
+    height: 40px;
 }
 
 #custom-search-input button{

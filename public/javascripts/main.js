@@ -1,13 +1,11 @@
  var app = app || {};
 
-$(function() {
+(function($) {
 
-   
+   $.notify.defaults( {globalPosition: 'bottom right',} )
 
 
-
-   $('#addLink').on('click', function(){ app.postUrl(); })
-   
+ 
 
    $(document).ready(function(){
      $("div.urlLinks button").css( "display","none" );
@@ -40,10 +38,19 @@ $(function() {
    }
 
    app.postUrl = function (   ){
-   	 var inputValue = $('#linkInput').val();
-     app.ajax("/validateUrl", inputValue ,function (data){
-       $("#savedList").prepend(app.renderHtml(data.obj));
-       app.addMouseInOutHandler ();
+   	 var inputValue = $('#linkInput').val().trim();
+     app.ajax("/validateUrl", inputValue ,function (data){ 
+
+      if(data.status == "success"){
+        $("#savedList").prepend(app.renderHtml(data.obj));
+        app.addMouseInOutHandler ();
+         
+        $.notify("Url has been saved!", "success");
+      }
+      else{
+        $.notify(data.message, "error");
+      }
+       
      });
     	  
 
@@ -81,7 +88,32 @@ $(function() {
      
    	  app.ajax("/delete", id ,function (data) {
       	  $("#"+id).remove(); 
+          $.notify("Url has been deleted!", "info");
       })
    }
 
-});	
+  app.logout = function (){
+     
+      app.ajax("/logout", "empty" ,function (data) {
+          window.location = data.url;
+      })
+  }
+
+  app.increaseCounter = function ( id ){
+      app.ajax("/increaseCounter", id ,function (data) {
+          $("#"+id+" #point").html(data.point);
+          $.notify(data.message, "info");
+      })
+
+  }
+
+  app.decreaceCounter = function ( id ){
+      app.ajax("/decreaseCounter", id ,function (data) {
+          $("#"+id+" #point").html(data.point);
+          $.notify(data.message, "info");
+      })
+  }
+
+   
+
+}(jQuery));	
