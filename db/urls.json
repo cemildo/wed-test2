@@ -5,9 +5,10 @@
         "date": "2015-05-21T16:10:25.918Z",
         "id": 1432224625918,
         "owner": "niyazi",
-        "point": 1,
+        "point": 2,
         "positive": [
-            1431706073238
+            1431706073238,
+            1431714935252
         ],
         "negative": []
     },
@@ -17,10 +18,22 @@
         "date": "2015-05-21T21:15:05.578Z",
         "id": 1432242905578,
         "owner": "cemil",
-        "point": 0,
-        "positive": [],
-        "negative": [
-            1431706073238
-        ]
+        "point": 1,
+        "positive": [
+            1431714935252
+        ],
+        "negative": []
+    },
+    {
+        "name": "Google",
+        "url": "http://google.com/",
+        "date": "2015-05-21T21:31:15.832Z",
+        "id": 1432243875832,
+        "owner": "zafer",
+        "point": 1,
+        "positive": [
+            1431714935252
+        ],
+        "negative": []
     }
 ]
