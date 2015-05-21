@@ -75,25 +75,25 @@
    app.ajax = function (func , link ,methode, call){
    		$.ajax({
         type: methode,
+        dataType:"json",
 			  url: func,
 			  cache: false,
 			  data: { "url":link},
 			  success: function(data){
-			  	 if(data.status === "success")
-			  	   call( data) ;
+			  	 call( data ) ;
 			  }
 		});
    }
 
    app.delete = function ( id ){
    	  app.ajax("/delete", id ,"PUT",function (data) {
-         
-        if(data['status'] == 'success'){
+         console.log(data);
+        if(data["status"] == "success" ){
       	  $("#"+id).remove();
           $.notify(data.message, "info");
         }
         else{
-          $.notify(data.message, "info");
+          $.notify(data.message, "error");
         }; 
           
       })

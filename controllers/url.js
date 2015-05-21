@@ -57,10 +57,10 @@ function URL (){
     	db.deleteNode(dbPath,req.body.url, req.session.user.username, function ( bool ){
             
             if(bool == true){
-                res.send({status: "success" , message: "Selected elemented has been succesfully deleted."});
+                res.send({status: "success" , message: "Selected element has been succesfully deleted."});
             }
             else{
-                res.send({status: "unsuccesfull"  , message: "Selected elemented cannot be deleted." });
+                res.send({status: "error"  , message: "Selected element cannot be deleted." });
             }
         })
     }

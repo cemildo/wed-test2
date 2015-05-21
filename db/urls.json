@@ -5,18 +5,22 @@
         "date": "2015-05-21T16:10:25.918Z",
         "id": 1432224625918,
         "owner": "niyazi",
-        "point": 0,
-        "positive": [],
+        "point": 1,
+        "positive": [
+            1431706073238
+        ],
         "negative": []
     },
     {
-        "name": "Cemil Dogan Hoi",
-        "url": "http://cemilDoganHoi.com",
-        "date": "2015-05-21T17:29:28.754Z",
-        "id": 1432229368754,
+        "name": "20minute",
+        "url": "http://www.20minute.com",
+        "date": "2015-05-21T21:15:05.578Z",
+        "id": 1432242905578,
         "owner": "cemil",
         "point": 0,
         "positive": [],
-        "negative": []
+        "negative": [
+            1431706073238
+        ]
     }
 ]
