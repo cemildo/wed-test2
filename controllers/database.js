@@ -32,28 +32,29 @@ function DB (){
       });
    }
 
-   this.deleteNode =function (dbPath,  id ){
+   this.deleteNode =function (dbPath,  id , owner, call){
       that.readFromFile (dbPath, function ( db ){
+         
          if(db.length == 0){
-            return "success";
+            call (false);
          }
-         function diffArray (a, b) {
-            var diff = [];
-            for ( var i = 0; i < a.length; i++)
-            {
-               if( a[i].id  != b ){
-                  diff.push(a[i]);
-               }
-            }
-            return diff;
-         }
+         
+         var initalLength = db.length;
+         for( i in db){
+           if(db[i].id == id && db[i].owner == owner){
+              db.splice(i, 1);
+           }
+         } 
+         var finalLength = db.length;
 
-          
-         var diff = diffArray(db,id);
-         that.writeToFile(dbPath, diff);
+         that.writeToFile(dbPath, db);
+
+         if(initalLength == finalLength){
+            call (false);
+         }else{
+            call (true);
+         }
       }); 
-      
-      return "success";
    }
 
    this.getOneByUserName = function (dbPath, username, call ){
@@ -100,7 +101,7 @@ function DB (){
    this.counterUp = function (dbPath, id , userId, call ){
        that.readFromFile (dbPath, function ( db ){
          var number = 0;
-          
+         
          for(elm in db)
          {  
             if(Number(db[elm].id) == Number(id) )
@@ -109,6 +110,7 @@ function DB (){
                db[elm].positive.push(userId);
                db[elm].negative.splice(db[elm].negative.indexOf(userId), 1);
                number =  db[elm].point;  
+
             }
          }
           

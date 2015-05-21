@@ -30,9 +30,37 @@
 #custom-search-input .glyphicon-search{
     font-size: 23px;
 }
+@font-face {
+    font-family:"oldStyle";
+    src: url("../fonts/ColabThi.otf");
+}
+ 
 
-.logout{
-    width: 200px;
-    float: right;
-    margin-top: 22px;
+#addLink, .oldStyleFont {
+    font-family: "oldStyle";
+}
+
+ .box {
+  background: #fff; /*#2db34a;*/
+  border-radius: 6px;
+  font-family: "oldStyle";
+  font-weight: bold;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  transition-property: background, border-radius;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  width: 25px;
+}
+
+body{
+font-family: "oldStyle";
+font-size: 20px;
+}
+
+.boxin {
+
+  background: #ff7b29;
+  border-radius: 50%;
 }

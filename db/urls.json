@@ -1,93 +1,22 @@
 [
     {
-        "name": "Moodle",
-        "url": "https://moodle.hsr.ch/mod/folder/view.php?id=4606",
-        "date": "2015-05-07T14:39:11.197Z",
-        "id": 1431009551197,
-        "owner": "Cemil ",
-        "point": 1,
-        "positive": [
-            1431706073238
-        ],
+        "name": "Zaman",
+        "url": "http://zaman.com.tr",
+        "date": "2015-05-21T16:10:25.918Z",
+        "id": 1432224625918,
+        "owner": "niyazi",
+        "point": 0,
+        "positive": [],
         "negative": []
     },
     {
-        "name": "Facebook",
-        "url": "https://www.facebook.com/?_rdr",
-        "date": "2015-05-07T14:40:11.290Z",
-        "id": 1431009611290,
-        "owner": "Cemil ",
-        "point": 1,
-        "positive": [
-            1431706073238
-        ],
-        "negative": []
-    },
-    {
-        "name": "Cemil Dogan Selamlar",
-        "url": "http://www.cemilDoganSelamlar.com",
-        "date": "2015-05-11T21:31:00.534Z",
-        "id": 1431379860534,
-        "owner": "Cemil ",
-        "point": 1,
-        "positive": [
-            1431706073238
-        ],
-        "negative": [
-            1431714935252
-        ]
-    },
-    {
-        "name": "Samanyoluhaber",
-        "url": "http://www.samanyoluhaber.com",
-        "date": "2015-05-11T21:34:00.922Z",
-        "id": 1431380040922,
-        "owner": "Cemil ",
-        "point": 6,
-        "positive": [
-            1431718413945,
-            1431714935252,
-            1431706073238
-        ],
-        "negative": []
-    },
-    {
-        "name": "Mudur Naptin",
-        "url": "http://mudurNaptin.com",
-        "date": "2015-05-16T12:51:08.781Z",
-        "id": 1431780668781,
-        "owner": "esma",
-        "point": 3,
-        "positive": [
-            1431718413945,
-            1431714935252,
-            1431706073238
-        ],
-        "negative": []
-    },
-    {
-        "name": "Getbootstrap",
-        "url": "http://getbootstrap.com/css/",
-        "date": "2015-05-16T17:39:39.125Z",
-        "id": 1431797979125,
+        "name": "20min",
+        "url": "http://www.20min.ch",
+        "date": "2015-05-21T17:01:43.294Z",
+        "id": 1432227703294,
         "owner": "cemil",
-        "point": 1,
-        "positive": [
-            1431706073238
-        ],
-        "negative": []
-    },
-    {
-        "name": "Google",
-        "url": "http://www.google.com",
-        "date": "2015-05-17T02:20:34.355Z",
-        "id": 1431829234355,
-        "owner": "cemil",
-        "point": 2,
-        "positive": [
-            1431714935252,
-            1431706073238
-        ],
+        "point": 0,
+        "positive": [],
         "negative": []
     }
 ]

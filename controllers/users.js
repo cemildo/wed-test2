@@ -74,7 +74,7 @@ function Users (){
              if(data.pass == password){
                 req.session.valid = true;
                 req.session.user = data;
-                res.send({status: "success", message: "you are authenticated!" , url : "/main"});
+                res.send({status: "success", message: "you are authenticated!" , url : "/LinkIt"});
              }
              else
                 res.send({status: "error", message: "Check your password again!" });
@@ -85,8 +85,9 @@ function Users (){
     }
 
     this.checkIfSessionValid = function (req,res, next ){
-          if(req.session.valid){
-            res.render('main', {"name" : req.session.user.username});
+          if(req.session.valid == true){
+            next();
+            //res.render('main', {"name" : req.session.user.username});
           }
           else{
             res.render('login', {});
@@ -100,8 +101,9 @@ function Users (){
         res.send({status: "success", message: "you are logged out!" , url : "/"});
     }
 
-    
-    
+    this.goToMainPage =  function (req, res){
+        res.render('main', {"name" : req.session.user.username});
+    }
 
 }
 

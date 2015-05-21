@@ -11,7 +11,7 @@ var router = express.Router();
 
 	router.get('/', function(req, res) {res.render('login', { title: 'Express' });});
 
-	router.get('/main', users.checkIfSessionValid );
+	router.get('/LinkIt', users.checkIfSessionValid , users.goToMainPage);
 
 	router.get('/checkIfNewArrived',  url.checkIfNewArrived);
 
@@ -19,17 +19,17 @@ var router = express.Router();
 
 	router.get('/validateUrl',  url.validateUrl);
 
-	router.get('/delete',  url.deleteNode);
+	router.put('/delete',  url.deleteNode);
 
 	router.get('/register',  users.Register);
 
     router.get('/doLogin',  users.authenticate);
 	
-	router.get("/logout", users.logoutUser);
+	router.put("/logout", users.logoutUser);
 
-	router.get("/increaseCounter", url.counterUp);
+	router.put("/increaseCounter", url.counterUp);
 
-	router.get("/decreaseCounter", url.counterDown);
+	router.put("/decreaseCounter", url.counterDown);
 
 	module.exports = router;
 

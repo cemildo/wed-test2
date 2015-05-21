@@ -57,9 +57,9 @@ $(function() {
         evt.preventDefault();
 
 	    var obj = {	
-		       username : $("#username").val(),
-		       password : $("#password").val()
-	       }	
+				       username : $("#username").val(),
+				       password : $("#password").val()
+			       }	
 	   
 	   	login.ajax("/doLogin", obj ,function (data) {
 	      	  if(data.status === "success"){

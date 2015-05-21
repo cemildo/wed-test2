@@ -53,11 +53,16 @@ function URL (){
     }
 
     this.deleteNode = function (req,res ){
-    	  
-    	if(db.deleteNode(dbPath,req.query.url) === "success") 
-        	res.send({status: "success" });
-        else
-        	res.send({status: "error" })
+         
+    	db.deleteNode(dbPath,req.body.url, req.session.user.username, function ( bool ){
+            console.log("cemil" , bool);
+            if(bool == true){
+                res.send({status: "success" , message: "Selected elemented has been succesfully deleted."});
+            }
+            if(bool == false){
+                res.send({status: "errors" , message: "Selected elemented cannot be deleted."});
+            }
+        })
     }
 
     this.getAll = function (req,res){ 
@@ -69,15 +74,28 @@ function URL (){
     this.checkIfNewArrived = function (req, res){
         // in html variable(frontend main.js) we have one more span,
         // otherwise it shows undefined initializing
-        var numberOfElementsInFrontend = req.query.url - 1; 
+        //var numberOfElementsInFrontend = req.query.url - 1; 
+        var clientData = req.query.url || 0;
 
         db.getAll(dbPath, function ( db ){
-            
-         	if(db.length != numberOfElementsInFrontend)
-         	 res.send({newUpdates: true ,status:"success"});
-            else	
-         	 res.send({newUpdates: false ,status:"success"});
-        }) ;
+            if(db.length != clientData.length){
+               res.send({newUpdates: true ,status:"success"}); 
+               return;
+            }
+
+            for(i in clientData){
+                for(k in db){
+                    if(clientData[i].id == db[k].id ){
+                        if(clientData[i].point != db[k].point ){
+                        res.send({newUpdates: true ,status:"success"});
+                        return; 
+                    } 
+                    }
+                }
+            }
+
+         	res.send({newUpdates: false ,status:"success"});
+        });
     }
 
     this.parseHostName = function (  hostName ){
@@ -89,32 +107,32 @@ function URL (){
     }
 
     this.counterUp   = function (req,res){
-
-       db.checkIfUserVoted (dbPath, req.query.url, req.session.user.id, function ( voteStatus ){ 
+     
+       db.checkIfUserVoted (dbPath, req.body.url, req.session.user.id, function ( voteStatus ){ 
            if(!voteStatus.positive){
-                db.counterUp(dbPath ,req.query.url,req.session.user.id, function ( number ){
+                db.counterUp(dbPath ,req.body.url,req.session.user.id, function ( number ){
 
                     res.send({status: "success", message: "you have increased the point of element!" , point : number });
 
                 });
             }
             else
-              res.send({status: "success", message: ""  });  
+              res.send({status: "success", message: "You have already voted for this post"  });  
         } ) 
        
     }
 
     this.counterDown = function (req,res){
-        db.checkIfUserVoted (dbPath, req.query.url, req.session.user.id, function ( voteStatus ){ 
+        db.checkIfUserVoted (dbPath, req.body.url, req.session.user.id, function ( voteStatus ){ 
            if(!voteStatus.negative){
-                db.counterDown(dbPath,req.query.url,req.session.user.id,function ( number ){
+                db.counterDown(dbPath,req.body.url,req.session.user.id,function ( number ){
                     
                     res.send({status: "success", message: "you have decreased the point of element!" , point : number });
 
                 });
             }
             else
-              res.send({status: "success", message: ""  }); 
+              res.send({status: "success", message: "You have already voted for this post"  }); 
         } ) 
          
     }

@@ -4,7 +4,7 @@
 
    $.notify.defaults( {globalPosition: 'bottom right',} )
 
-
+   
  
 
    $(document).ready(function(){
@@ -16,8 +16,7 @@
 
 
    app.checkIfNewArrived = function (){
-       var numberOfChild = $("#savedList").children().length;
-       app.ajax("/checkIfNewArrived", numberOfChild ,function (data){
+        app.ajax("/checkIfNewArrived", app.data ,"GET",function (data){
           if(data.newUpdates){
             app.getAll ();
           }
@@ -26,20 +25,21 @@
    }
 
    app.getAll = function (){
-     app.ajax("/getAll", "" ,function (data ){
+     app.ajax("/getAll", "" ,"GET",function (data ){
       var html ="<span></span>";
       for(index in data.obj){
         html += app.renderHtml(data.obj[index]);
       }
       $("#savedList").html(html);
       app.addMouseInOutHandler ();
+      app.data = data.obj;
       data = null;
     });
    }
 
    app.postUrl = function (   ){
    	 var inputValue = $('#linkInput').val().trim();
-     app.ajax("/validateUrl", inputValue ,function (data){ 
+     app.ajax("/validateUrl", inputValue ,"GET",function (data){ 
 
       if(data.status == "success"){
         $("#savedList").prepend(app.renderHtml(data.obj));
@@ -72,8 +72,9 @@
      return template(data);
    }
 
-   app.ajax = function (func , link ,call){
+   app.ajax = function (func , link ,methode, call){
    		$.ajax({
+        type: methode,
 			  url: func,
 			  cache: false,
 			  data: { "url":link},
@@ -85,31 +86,46 @@
    }
 
    app.delete = function ( id ){
-     
-   	  app.ajax("/delete", id ,function (data) {
-      	  $("#"+id).remove(); 
-          $.notify("Url has been deleted!", "info");
+   	  app.ajax("/delete", id ,"PUT",function (data) {
+         
+        if(data['status'] == 'success'){
+      	  $("#"+id).remove();
+          $.notify(data.message, "info");
+        }
+        else{
+          $.notify(data.message, "info");
+        }; 
+          
       })
    }
 
   app.logout = function (){
      
-      app.ajax("/logout", "empty" ,function (data) {
+      app.ajax("/logout", "empty" ,"PUT", function (data) {
           window.location = data.url;
       })
   }
 
   app.increaseCounter = function ( id ){
-      app.ajax("/increaseCounter", id ,function (data) {
+      app.ajax("/increaseCounter", id ,"PUT", function (data) {
           $("#"+id+" #point").html(data.point);
+          $("#"+id+" #point").addClass("boxin");
+          setTimeout(function(){ 
+              $("#"+id+" #point").removeClass("boxin");
+           }, 1000);
+          
           $.notify(data.message, "info");
       })
 
   }
 
   app.decreaceCounter = function ( id ){
-      app.ajax("/decreaseCounter", id ,function (data) {
+      app.ajax("/decreaseCounter", id ,"PUT", function (data) {
           $("#"+id+" #point").html(data.point);
+          $("#"+id+" #point").addClass("boxin");
+          setTimeout(function(){ 
+              $("#"+id+" #point").removeClass("boxin");
+           }, 1000);
           $.notify(data.message, "info");
       })
   }
